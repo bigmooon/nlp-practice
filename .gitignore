@@ -1,0 +1,30 @@
+# 환경 변수 (절대 커밋 금지)
+.env
+
+# 가상환경
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# 원본 데이터 (용량 큼, 재수집 가능)
+data/raw/
+
+# IDE
+.vscode/
+.idea/
+*.DS_Store
+
+# 빌드 아티팩트
+*.egg-info/
+dist/
+build/
+
+.ruff_cache/

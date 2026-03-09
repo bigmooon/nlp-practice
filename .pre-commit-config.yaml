@@ -1,0 +1,73 @@
+default_language_version:
+  python: python3.12
+
+default_stages: [pre-commit] # commit 단계에서만 실행
+fail_fast: false # 오류 발생 시 즉시 종료
+
+repos:
+  # ==========================================
+  # 1. 기본 파일 검사
+  # ==========================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # 파일 끝 줄바뀜
+      - id: end-of-file-fixer
+        name: "파일 끝 개행 확인"
+
+      # 줄 끝 공백 제거
+      - id: trailing-whitespace
+        name: "줄 끝 공백 제거"
+        args: [--markdown-linebreak-ext=md]
+
+      # YAML 문법 검사
+      - id: check-yaml
+        name: "YAML 문법 검사"
+
+      # TOML 문법 검사
+      - id: check-toml
+        name: "TOML 문법 검사"
+
+      # JSON 문법 검사
+      - id: check-json
+        name: "JSON 문법 검사"
+
+      # Merge 충돌 마커 확인
+      - id: check-merge-conflict
+        name: "Merge 충돌 확인"
+
+      # 디버그 구문 확인
+      - id: debug-statements
+        name: "디버그 구문 확인"
+
+      # Private 키 탐지
+      - id: detect-private-key
+        name: "Private 키 탐지"
+
+  # ==========================================
+  # 2. Ruff Linter
+  # ==========================================
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff
+        name: "Ruff 린터"
+        args:
+          - --fix
+          - --exit-non-zero-on-fix
+
+      # ==========================================
+      # 3. Ruff Formatter
+      # ==========================================
+      - id: ruff-format
+        name: "Ruff 포매터"
+
+  # ==========================================
+  # 4. Commitizen
+  # ==========================================
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.29.1
+    hooks:
+      - id: commitizen
+        name: "Commitizen 메시지 검증"
+        stages: [commit-msg]
