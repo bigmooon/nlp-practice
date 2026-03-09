@@ -32,7 +32,7 @@ class GitHubClient:
         if raw:
             kwargs["extra_headers"] = {"Accept": "application/vnd.github.raw+json"}
         res = self._request("GET", self._url(path), is_search=is_search, **kwargs)
-        if res.status_code == 404:
+        if res.status_code in (404, 451):
             return None
         res.raise_for_status()
         return res.text if raw else res.json()
@@ -51,7 +51,7 @@ class GitHubClient:
             res = self._request(
                 "GET", url, is_search=is_search, params=params, **kwargs
             )
-            if res.status_code == 404:
+            if res.status_code in (404, 451):
                 break
             res.raise_for_status()
 
